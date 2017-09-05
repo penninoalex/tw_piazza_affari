@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23-ago-2017 14.13.13 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="it.pennino.uni.piazzaAffari.user.model.UserRuoli" table="user_ruoli"  optimistic-lock="version">
+        <id name="idRuolo" type="java.lang.Integer">
+            <column name="ID_RUOLO" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="users" class="it.pennino.uni.piazzaAffari.user.model.User" fetch="select">
+            <column name="ID_USER" not-null="true" />
+        </many-to-one>
+        <property name="ruolo" type="string">
+            <column name="RUOLO" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

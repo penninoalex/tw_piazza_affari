@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24-ago-2017 16.04.25 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="it.pennino.uni.piazzaAffari.annuncio.model.Annuncio" table="annunci" optimistic-lock="version">
+        <id name="idAnnuncio" type="java.lang.Integer">
+            <column name="ID_ANNUNCIO" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="categoria" class="it.pennino.uni.piazzaAffari.categoria.model.Categoria" fetch="select">
+            <column name="CATEGORIA" length="25" not-null="true" />
+        </many-to-one>
+        <many-to-one name="users" class="it.pennino.uni.piazzaAffari.user.model.User" fetch="select">
+            <column name="ID_UTENTE" not-null="true" />
+        </many-to-one>
+        <property name="titolo" type="string">
+            <column name="TITOLO" length="250" not-null="true" />
+        </property>
+        <property name="descrizione" type="string">
+            <column name="DESCRIZIONE" length="65535" not-null="true" />
+        </property>
+        <property name="prezzo" type="big_decimal">
+            <column name="PREZZO" precision="11" not-null="true" />
+        </property>
+        <property name="tipoPrezzo" type="string">
+            <column name="TIPO_PREZZO" length="2" not-null="true" />
+        </property>
+        <property name="approvato" type="string">
+            <column name="APPROVATO" length="2" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

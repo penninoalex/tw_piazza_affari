@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ago-2017 19.30.41 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="it.pennino.uni.piazzaAffari.cms.model.Pagine" table="pagine" catalog="piazza_affari" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="url" type="string">
+            <column name="URL" length="200" not-null="true" />
+        </property>
+        <property name="titolo" type="string">
+            <column name="TITOLO" length="100" not-null="true" />
+        </property>
+        <property name="contenuto" type="string">
+            <column name="CONTENUTO" length="65535" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

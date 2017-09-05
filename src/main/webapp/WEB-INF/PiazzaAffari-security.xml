@@ -1,0 +1,45 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-4.2.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- enable use-expressions -->
+	<sec:http auto-config="true" use-expressions="true">
+		
+		<intercept-url pattern="/professionisti**/**" access="hasRole('ROLE_PROFESSIONISTA')" />
+		<intercept-url pattern="/admin**/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/clienti**/**" access="hasRole('ROLE_CLIENTE')" />
+		<intercept-url pattern="/moderatori**/**" access="hasRole('ROLE_MODERATORE')" />
+		
+		<!-- access denied page
+		<access-denied-handler error-page="/403" />
+		 -->
+		<form-login
+		    login-page="/accedi"
+		    login-processing-url="/verificaLogin"
+		    default-target-url="/loghiOk"
+			authentication-failure-url="/errore"
+			authentication-success-handler-ref="mySuccessHandler"
+			
+			username-parameter="email"
+			password-parameter="password" />
+		<logout 
+			logout-success-url="/home"
+			logout-url="/logout" />
+		<!-- enable csrf protection -->
+		<csrf/>
+	</sec:http>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="userDetailsServiceImplement" >
+			<!-- <password-encoder hash="bcrypt" /> -->
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="userDetailsServiceImplement"    class="it.pennino.uni.piazzaAffari.user.controller.UserDetailsServiceImplement"></beans:bean>
+    <beans:bean id="mySuccessHandler" 				class="it.pennino.uni.piazzaAffari.user.controller.MySuccessHandler"></beans:bean>
+</beans:beans>

@@ -1,0 +1,12 @@
+footer{
+	background-color : #274b65;
+	color: #fefefe;
+}
+
+#textareaChat{
+	height: 100%;
+	min-height:150px;
+	max-height:100%;
+	overflow: auto;
+	
+}

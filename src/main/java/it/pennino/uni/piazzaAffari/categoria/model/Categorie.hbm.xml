@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24-ago-2017 16.04.25 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="it.pennino.uni.piazzaAffari.categoria.model.Categoria" table="categorie"  optimistic-lock="version">
+        <id name="nome" type="string">
+            <column name="NOME" length="25" />
+            <generator class="assigned" />
+        </id>
+        <set name="annunci" table="annunci" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CATEGORIA" length="25" not-null="true" />
+            </key>
+            <one-to-many class="it.pennino.uni.piazzaAffari.annuncio.model.Annuncio" />
+        </set>
+    </class>
+</hibernate-mapping>

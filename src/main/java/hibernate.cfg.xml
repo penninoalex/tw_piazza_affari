@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.show_sql">true</property>
+  <property name="hibernate.connection.pool_size">10</property>
+  <property name="hibernate.cache.use.query_cache">false</property>
+  <property name="hibernate.cache.use_second_level_cache">false</property>
+  <property name="hibernate.format_sql">false</property>
+  <property name="hibernate.singleSession">false</property>
+  <property name="hibernate.enable_lazy_load_no_trans">true</property>
+  <property name="hibernate.connection.password">piazza_affari</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost/piazza_affari</property>
+  <property name="hibernate.connection.username">piazza_affari</property>
+  <property name="hibernate.default_schema">piazza_affari</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+  
+  <mapping resource="it/pennino/uni/piazzaAffari/user/model/User.hbm.xml"/>
+  <mapping resource="it/pennino/uni/piazzaAffari/user/model/UserRuoli.hbm.xml"/>
+ 
+  <mapping resource="it/pennino/uni/piazzaAffari/categoria/model/Categorie.hbm.xml"/>
+  <mapping resource="it/pennino/uni/piazzaAffari/annuncio/model/Annunci.hbm.xml"/>
+ 
+  <mapping resource="it/pennino/uni/piazzaAffari/cms/model/Pagine.hbm.xml"/>
+ 
+ 
+ </session-factory>
+</hibernate-configuration>

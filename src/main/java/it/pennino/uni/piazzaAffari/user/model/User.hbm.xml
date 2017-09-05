@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-ago-2017 14.41.54 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="it.pennino.uni.piazzaAffari.user.model.User" table="users" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="nome" type="string">
+            <column name="nome" length="50" not-null="true" />
+        </property>
+        <property name="cognome" type="string">
+            <column name="cognome" length="50" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="100" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="50" not-null="true" />
+        </property>
+        <property name="approvato" type="string">
+            <column name="APPROVATO" length="2" not-null="true" />
+        </property>
+        
+        <set name="userRuoli" table="user_ruoli" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_USER" not-null="true" />
+            </key>
+            <one-to-many class="it.pennino.uni.piazzaAffari.user.model.UserRuoli" />
+        </set>
+        <set name="annunci" table="annunci" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_UTENTE" not-null="true" />
+            </key>
+            <one-to-many class="it.pennino.uni.piazzaAffari.annuncio.model.Annuncio" />
+        </set>
+    </class>
+</hibernate-mapping>
