@@ -1,6 +1,5 @@
 package it.pennino.uni.piazzaAffari.cms.model;
 
-//it.pennino.uni.piazzaAffari.cms.Pagine
 public class Pagine implements java.io.Serializable {
 
 	private Integer id;

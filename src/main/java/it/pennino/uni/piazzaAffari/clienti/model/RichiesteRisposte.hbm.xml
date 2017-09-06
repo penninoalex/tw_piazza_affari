@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="it.pennino.uni.piazzaAffari.clienti.model.RichiesteRisposte" table="richieste_risposte" optimistic-lock="version">
+        <composite-id name="id" class="it.pennino.uni.piazzaAffari.clienti.model.RichiesteRisposteId">
+            <key-property name="idRichiesta" type="int">
+                <column name="ID_RICHIESTA" />
+            </key-property>
+            <key-property name="idRisposta" type="int">
+                <column name="ID_RISPOSTA" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="richieste" class="it.pennino.uni.piazzaAffari.clienti.model.Richiesta" update="false" insert="false" fetch="select">
+            <column name="ID_RICHIESTA" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="it.pennino.uni.piazzaAffari.user.model.User" fetch="select">
+            <column name="ID_PROFESSIONISTA" not-null="true" />
+        </many-to-one>
+        <property name="testo" type="string">
+            <column name="TESTO" length="65535" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

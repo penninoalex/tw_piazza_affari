@@ -42,20 +42,6 @@
 	
 	<article>
 		<div class="container">
-			<div>
-				<form class="form-inline" method="POST" action="#">
-					<div class="form-group">
-				    	<label for="titolo">Titolo (contiene):</label>
-				    	<input type="search" class="form-control" id="titolo">
-				  	</div>
-				  	<div class="form-group">
-				    	<label for="descrizione">Descrizione (contiene):</label>
-				    	<input type="search" class="form-control" id="descrizione">
-				  	</div>
-				  	<button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
-				</form>
-			</div>
-			
 			<div class="table-responsive">
 				<table class="table table-striped table-condensed">				
 				<thead>
@@ -81,17 +67,17 @@
 							%>
 								<tr>
 									<td>
-										<a id="deleteAnnuncio" href="annuncio/delete/<%=ann.getIdAnnuncio()%>">
+										<a id="deleteAnnuncio" href="${pageContext.request.contextPath}/moderatori/annuncio/delete/<%=ann.getIdAnnuncio()%>" title="Annulla">
 								          <span class="glyphicon glyphicon-trash"></span>
 								        </a>
 									</td>
 									<td>
-										<a id="visualizza" href="annuncio/approva/<%=ann.getIdAnnuncio()%>">
+										<a id="approva" href="${pageContext.request.contextPath}/moderatori/annuncio/approva/<%=ann.getIdAnnuncio()%>" title="Approva">
 								          <span class="glyphicon glyphicon glyphicon-ok"></span>
 								        </a>
 									</td>
 									<td>
-										<a id="visualizza" href="annuncio/<%=ann.getIdAnnuncio()%>">
+										<a id="visualizza" href="${pageContext.request.contextPath}/moderatori/annuncio/<%=ann.getIdAnnuncio()%>" title="Visualizza">
 								          <span class="glyphicon glyphicon-eye-open"></span>
 								        </a>
 									</td>

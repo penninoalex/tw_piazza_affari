@@ -8,6 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 import it.pennino.uni.piazzaAffari.annuncio.model.Annuncio;
 import it.pennino.uni.piazzaAffari.annuncio.model.AnnuncioDao;
 import it.pennino.uni.piazzaAffari.annuncio.model.AnnuncioDaoImp;
+import it.pennino.uni.piazzaAffari.clienti.model.Richiesta;
+import it.pennino.uni.piazzaAffari.clienti.model.RichiestaDao;
+import it.pennino.uni.piazzaAffari.clienti.model.RichiestaDaoImp;
 import it.pennino.uni.piazzaAffari.user.model.User;
 import it.pennino.uni.piazzaAffari.user.model.UserDao;
 import it.pennino.uni.piazzaAffari.user.model.UserDaoImp;
@@ -91,6 +94,13 @@ public class ModeratoriController {
 		return view;
 	}
 	
+	@RequestMapping(value = {"/moderatori/lista_richieste"} , method = RequestMethod.GET)
+	public ModelAndView listaRichieste(){
+		ModelAndView view = new ModelAndView("view/moderatori/listaRichieste");
+		 
+		return view;
+	}
+	
 	
 	
 	
@@ -147,5 +157,42 @@ public class ModeratoriController {
 		}
 		
 		return "redirect:/moderatori/lista_utenti";
+	}
+	
+	@RequestMapping( value = {"moderatori/richiesta/approva/{id_richiesta}"} ,method = RequestMethod.GET)
+	public String approvaRichiesta(@PathVariable Integer id_richiesta){
+		RichiestaDao rDao = new RichiestaDaoImp();
+		Richiesta richiesta = rDao.findById(id_richiesta);
+		richiesta.setApprovato("Y");
+		rDao.save(richiesta);
+		
+		return "redirect:/moderatori/lista_richieste";
+	}
+	
+	@RequestMapping( value = {"moderatori/richiesta/annulla/{id_richiesta}"} ,method = RequestMethod.GET)
+	public String approvaAnnull(@PathVariable Integer id_richiesta){
+		RichiestaDao rDao = new RichiestaDaoImp();
+		Richiesta richiesta = rDao.findById(id_richiesta);
+		richiesta.setApprovato("N");
+		rDao.save(richiesta);
+		
+		return "redirect:/moderatori/lista_richieste";
+	}
+	
+	@RequestMapping(value = {"/moderatori/richiesta/{id_richiesta}"} , method = RequestMethod.GET)
+	public ModelAndView visualizzaRichiesta(@PathVariable Integer id_richiesta){
+		RichiestaDao rDao = new RichiestaDaoImp();
+		Richiesta richiesta = rDao.findById(id_richiesta);
+		
+		ModelAndView view = null;
+		
+		if(richiesta!=null){
+			view = new ModelAndView("view/moderatori/schedaRichiesta");
+			view.addObject("richiesta",richiesta);
+		}else{
+			view = new ModelAndView("view/moderatori/schedaRichiesta-err");
+		}
+		
+		return view;
 	}
 }

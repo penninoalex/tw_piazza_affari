@@ -68,8 +68,6 @@ public class ProfessionistiController {
 		ModelAndView model = new ModelAndView();
 		
 		try{
-			
-			
 			//Recupero la categoria
 			CategoriaDao cDao = new CategoriaDaoImp();
 			Categoria cat = cDao.findById(categoria);
@@ -98,9 +96,6 @@ public class ProfessionistiController {
 			model = new ModelAndView("view/professionisti/annuncioErrore");
 		}
 		
-		//model.addObject("title", "Spring Security Hello World");
-		//model.addObject("message", "This is protected page!");
-	
 		return model;
 	}
 	

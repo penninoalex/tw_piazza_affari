@@ -21,20 +21,6 @@
 	
 	<article>
 		<div class="container">
-			<div>
-				<form class="form-inline" method="POST" action="#">
-					<div class="form-group">
-				    	<label for="nome">Nome (contiene):</label>
-				    	<input type="search" class="form-control" id="nome">
-				  	</div>
-				  	<div class="form-group">
-				    	<label for="cognome">Cognome (contiene):</label>
-				    	<input type="search" class="form-control" id="cognome">
-				  	</div>
-				  	<button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
-				</form>
-			</div>
-			
 			<div class="table-responsive">
 				<table class="table table-striped table-condensed">				
 				<thead>

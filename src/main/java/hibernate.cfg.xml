@@ -25,6 +25,8 @@
  
   <mapping resource="it/pennino/uni/piazzaAffari/cms/model/Pagine.hbm.xml"/>
  
+  <mapping resource="it/pennino/uni/piazzaAffari/clienti/model/Richieste.hbm.xml"/>
+  <mapping resource="it/pennino/uni/piazzaAffari/clienti/model/RichiesteRisposte.hbm.xml"/>
  
  </session-factory>
 </hibernate-configuration>

@@ -47,7 +47,7 @@
 						    	<input type="text" class="form-control" id="msg" name="msg" placeholder="Messagio">
 							</div>
 							<input type="hidden" value="${nome}" id="nome" name="nome">
-							<input type="text" value="" id="idMittente" name="idMittente">
+							<input type="hidden" value="" id="idMittente" name="idMittente">
 							<button id="inviaMsg" type="button" class="btn btn-default glyphicon glyphicon-log-in">Invia</button>
 					</div>
 				</div>
@@ -65,8 +65,7 @@
              type: 'POST',
              data:$("#formMsg").serialize(),
              success: function() {
-                 //alert('Msg inviato');
-            	 msg.value="";
+                 msg.value="";
              }
          })        
     });

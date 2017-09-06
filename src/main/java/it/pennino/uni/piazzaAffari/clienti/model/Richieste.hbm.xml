@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 5-set-2017 21.34.11 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="it.pennino.uni.piazzaAffari.clienti.model.Richiesta" table="richieste" optimistic-lock="version">
+        <id name="idRichiesta" type="java.lang.Integer">
+            <column name="ID_RICHIESTA" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="user" class="it.pennino.uni.piazzaAffari.user.model.User" fetch="select">
+            <column name="ID_UTENTE" not-null="true" />
+        </many-to-one>
+        <property name="categoria" type="string">
+            <column name="CATEGORIA" length="25" not-null="true" />
+        </property>
+        <property name="titolo" type="string">
+            <column name="TITOLO" length="250" not-null="true" />
+        </property>
+        <property name="descrizione" type="string">
+            <column name="DESCRIZIONE" length="65535" not-null="true" />
+        </property>
+        <property name="approvato" type="string">
+            <column name="APPROVATO" length="2" not-null="true" />
+        </property>
+        <set name="richiesteRispostes" table="richieste_risposte" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_RICHIESTA" not-null="true" />
+            </key>
+            <one-to-many class="it.pennino.uni.piazzaAffari.clienti.model.RichiesteRisposte" />
+        </set>
+    </class>
+</hibernate-mapping>

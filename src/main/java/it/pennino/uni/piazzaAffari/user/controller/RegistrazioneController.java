@@ -36,7 +36,8 @@ public class RegistrazioneController {
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			@RequestParam(value = "rCliente" , required = false) String cliente,
-			@RequestParam(value = "rProf" , required = false) String professionista){
+			@RequestParam(value = "rProf" , required = false) String professionista,
+			@RequestParam(value = "cat" , required = false) String[] cat){
 		
 		System.out.println("USERS");
 		System.out.println("NOME = "+nome);
@@ -45,6 +46,7 @@ public class RegistrazioneController {
 		System.out.println("PASSWORD = "+password);
 		System.out.println("CLIENTE = "+cliente);
 		System.out.println("PROFESSIONISTA = "+professionista);
+		System.out.println("cat = "+cat[0]);
 		
 		User utente = new User();
 		utente.setCognome(cognome);
@@ -68,12 +70,17 @@ public class RegistrazioneController {
 				ruolo.setUsers(utente);
 				ruolo.setRuolo("ROLE_CLIENTE");
 				session.save(ruolo);
+			
+				//TODO imposta categorie professionista
+				
+				
 			}else{
 				ruolo = new UserRuoli();
 				ruolo.setUsers(utente);
 				ruolo.setRuolo("ROLE_CLIENTE");
 				session.save(ruolo);
 			}
+			
 			
 			tx.commit();
 		} catch (Exception e) {

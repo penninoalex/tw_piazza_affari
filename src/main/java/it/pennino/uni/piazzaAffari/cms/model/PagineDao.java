@@ -1,6 +1,5 @@
 package it.pennino.uni.piazzaAffari.cms.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface PagineDao {

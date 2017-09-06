@@ -6,13 +6,12 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/moderatori/home">Moderatori</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/clienti/home">Clienti</a>
 		</div>
 		<div class="collapse navbar-collapse" id="nav2">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="${pageContext.request.contextPath}/moderatori/lista_annunci">Approva annunci professionisti</a></li>
-				<li><a href="${pageContext.request.contextPath}/moderatori/lista_richieste">Approva richieste clienti</a></li>
-				<li><a href="${pageContext.request.contextPath}/moderatori/lista_utenti">Approva utente</a></li>
+				<li><a href="${pageContext.request.contextPath}/clienti/nuova_richiesta">Nuova richiesta</a></li>
+				<li><a href="${pageContext.request.contextPath}/clienti/lista_richieste">Le mie richieste</a></li>
 				<li><a href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-out"></span>LogOut</a></li>
       		</ul>
 		</div>

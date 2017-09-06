@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@page import="java.util.Iterator"%>
+<%@page import="it.pennino.uni.piazzaAffari.categoria.model.Categoria"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="it.pennino.uni.piazzaAffari.categoria.model.CategoriaDaoImp"%>
+<%@page import="it.pennino.uni.piazzaAffari.categoria.model.CategoriaDao"%>
 <html>
 <head>
 	
@@ -12,8 +17,20 @@
 	
 	
 	<title>Piazza affari - ${titolo}</title>
+	
+	
+	<script type="text/javascript">
+		function divToggle(){
+			if(rProf.checked){
+				divCategorie.setAttribute("class","");
+			}else{
+				divCategorie.setAttribute("class","hidden");
+			}
+		}
+	</script>
+	
 </head>
-<body>
+<body onload="divToggle()">
 	<%@include file='../header.jsp' %>
 	<%@include file='../topMenu.jsp' %>
 	<article>
@@ -23,8 +40,22 @@
 				<div class="form-group">
 			    	<label id="ruoli"> 
 			    		Cliente : <input id="rCliente" name="rCliente" type="checkbox" checked="checked"> 
-			    		Professionista : <input id="rProf" name="rProf" type="checkbox"> 
+			    		Professionista : <input id="rProf" name="rProf" type="checkbox" onclick="divToggle()"> 
 			    	</label>
+				</div>
+				<div id="divCategorie" class="hidden">
+					<div class="form-group" >
+						<label for="nome">Categorie:</label>
+						<%
+							CategoriaDao cDao = new CategoriaDaoImp();
+							ArrayList<Categoria> categorie = cDao.findAll();
+							Iterator<Categoria> itrCat = categorie.iterator();
+							while(itrCat.hasNext()){
+								Categoria cat = itrCat.next();
+						%>
+							<label class="checkbox-inline"><input type="checkbox" name="cat" value="<%=cat.getNome()%>"><%=cat.getNome()%></label>
+						<%}%>
+					</div>
 				</div>
 				<div class="form-group">
 			    	<label for="nome">Nome:</label>

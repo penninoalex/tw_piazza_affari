@@ -1,5 +1,5 @@
 <footer>
-	<div id="footerRow1" class="row">
+	<div id="footerRow1" class="row footer">
 		<div id="footerAzienda" class="col-sm-4">
 			<h2>Piazza affari</h2>
 			<ul>
@@ -28,13 +28,14 @@
 			</ul>
 		</div>
 	</div>
-	<div id="footerRow2" class="row">
+	<div id="footerRow2" class="row footer footerR2">
+		<div class="col-sm-2">
+			<img class="logo" src="${pageContext.request.contextPath}/resources/img/logo.png"/>
+		</div>
 		<div class="col-sm-10" id="legalInfo" itemscope	itemtype="http://schema.org/Corporation">
-			<span itemprop="legalName"><h4>Piazza affari S.r.l</h4></span>
-			<p>
-				Sede legale : <span itemprop="address"> Via ...</span>
-			</p>
-			<p itemprop="email">test@piazzaaffari.it</p>
+			<span itemprop="legalName"><h4>Piazza affari</h4></span>
+			<p>Sede legale : <span itemprop="address"> Isola C4, Centro Direzionale, 80133 Napoli NA</span></p>
+			<p itemprop="email">info@piazzaaffari.it</p>
 		</div>
 	</div>
 

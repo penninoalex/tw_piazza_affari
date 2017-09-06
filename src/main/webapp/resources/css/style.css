@@ -1,7 +1,16 @@
-footer{
+.logo{
+	margin :10%;
+}
+
+.footer{
 	background-color : #274b65;
 	color: #fefefe;
 }
+
+.footerR2{
+	border-top: 1px solid #17354a;
+}
+    
 
 #textareaChat{
 	height: 100%;
