@@ -51,21 +51,26 @@ public class ModeratoriController {
 	public String cancellaAnnuncio(@PathVariable Integer id_annuncio){
 		AnnuncioDao aDao = new AnnuncioDaoImp();
 		Annuncio annuncio = aDao.findById(id_annuncio);
-		aDao.delete(annuncio);
-		
 		ModelAndView view;
-		if(annuncio!=null){
+		
+		try{
+			if(annuncio.getApprovato().equals("N")){
+				aDao.delete(annuncio);
+			}else{
+				annuncio.setApprovato("N");
+				aDao.save(annuncio);
+			}
 			view = new ModelAndView("view/moderatori/listaAnnunci");
 			view.addObject("annuncioOld",annuncio);
 			view.addObject("deleteOk",true);
-		}else{
+		}catch (Exception e) {
+			e.printStackTrace();
 			view = new ModelAndView("view/moderatori/listaAnnunci");
 			view.addObject("annuncioOld",annuncio);
 			view.addObject("deleteOk",false);
 		}
 		
 		return "redirect:/moderatori/lista_annunci";
-		
 	}
 	
 	@RequestMapping( value = {"moderatori/annuncio/approva/{id_annuncio}"} ,method = RequestMethod.GET)
@@ -141,21 +146,27 @@ public class ModeratoriController {
 					
 	@RequestMapping( value = {"moderatori/utente/delete/{id_utente}"} ,method = RequestMethod.GET)
 	public String cancellaUtente(@PathVariable Integer id_utente){
-		UserDao uDao = new UserDaoImp();
-		User utente = uDao.findById(id_utente);
-		uDao.delete(utente);
-		
 		ModelAndView view;
-		if(utente!=null){
+		UserDao uDao = new UserDaoImp();
+		User utente = null;
+		try{
+			utente = uDao.findById(id_utente);
+			
+			if(utente.getApprovato().equals("N")){
+				uDao.delete(utente);
+			}else{
+				utente.setApprovato("N");
+				uDao.save(utente);
+			}
 			view = new ModelAndView("view/moderatori/listaAnnunci");
 			view.addObject("utenteOld",utente);
 			view.addObject("deleteOk",true);
-		}else{
+		}catch (Exception e) {
+			e.printStackTrace();
 			view = new ModelAndView("view/moderatori/listaAnnunci");
 			view.addObject("utenteOld",utente);
 			view.addObject("deleteOk",false);
 		}
-		
 		return "redirect:/moderatori/lista_utenti";
 	}
 	
@@ -173,8 +184,15 @@ public class ModeratoriController {
 	public String approvaAnnull(@PathVariable Integer id_richiesta){
 		RichiestaDao rDao = new RichiestaDaoImp();
 		Richiesta richiesta = rDao.findById(id_richiesta);
-		richiesta.setApprovato("N");
-		rDao.save(richiesta);
+		
+		if(richiesta.getApprovato().equals("N")){
+			//cancello la richeista
+			rDao.delete(richiesta);
+		}else{
+			richiesta.setApprovato("N");
+			rDao.save(richiesta);
+		}
+		
 		
 		return "redirect:/moderatori/lista_richieste";
 	}

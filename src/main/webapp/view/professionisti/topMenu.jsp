@@ -1,3 +1,5 @@
+<%@page import="it.pennino.uni.piazzaAffari.clienti.model.RichiestaDaoImp"%>
+<%@page import="it.pennino.uni.piazzaAffari.clienti.model.RichiestaDao"%>
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -12,6 +14,16 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="${pageContext.request.contextPath}/professionisti/home">Pubblica annuncio</a></li>
 				<li><a href="${pageContext.request.contextPath}/professionisti/lista_annunci">Lista annunci</a></li>
+				<li><a href="${pageContext.request.contextPath}/professionisti/lista_richieste">Lista richieste  <span class="badge">
+				
+				<%
+					Integer nRichieste = (new RichiestaDaoImp()).numeroRichieste();
+					out.print(nRichieste);
+				%>
+				
+				</span> </a></li>
+				
+				
 				
 				<li><a href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-out"></span>LogOut</a></li>
       		</ul>

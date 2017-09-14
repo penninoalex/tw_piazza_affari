@@ -16,7 +16,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Piazza affari - moderatori</title>
+<title>Piazza affari - Scheda richiesta ${richiesta.idRichiesta}</title>
 </head>
 <body>
 	<%@include file='header.jsp'%>
@@ -24,32 +24,22 @@
 	<div class="container">
 		<section>
 			<header class="page-header">
-				<h1 id="cognomeNome">${user.getCognome()} ${user.getNome()}</h1> 
+				<h1 id="cognomeNome">${richiesta.getUser().getCognome()} ${richiesta.getUser().getNome()}</h1> 
 			</header>
 			<article>
 				<label id="lEmail" for="email">Email:</label>
-				<p class="lead" id="email">${user.getEmail()}</p> 
+				<p class="lead" id="email" >${richiesta.getUser().getEmail()}</p> 
 				
-				<label id="lRuoli" for="ruoli">Ruoli:</label>
-				<p class="lead" id="ruoli">${user.getUserRuoli()}</p> 
+				<label id="lCategoria" for="categoria">Categoria:</label>
+				<p class="lead" id="categoria" >${richiesta.getCategoria()}</p> 
 				
-				<% 
-					User user = (User)request.getAttribute("user"); 
-					if(user.getUserCategorie()!=null && user.getUserCategorie().size()>0){
-						%>
-						<ul class="list-group">
-							<li class="list-group-item list-group-item-success">Categorie</li>
-							<%
-								Iterator<UsersCategorie> itrCat= user.getUserCategorie().iterator();
-								while(itrCat.hasNext()){
-									UsersCategorie uc = itrCat.next();
-									out.print("<li  class=\"list-group-item\" >"+uc.getId().getCategoria()+"</li>");
-								}
-							%>
-						</ul>
-						<%
-					}
-				%>
+				<label id="lTitolo" for="titolo">Titolo:</label>
+				<p class="lead" id="titolo" >${richiesta.getTitolo()}</p> 
+				
+				<label id="lRichiesta" for="richiesta">Richiesta:</label>
+				<p class="lead" id="richiesta" >${richiesta.getDescrizione()}</p> 
+				
+				
 			</article>
 		</section>
 		<br/>

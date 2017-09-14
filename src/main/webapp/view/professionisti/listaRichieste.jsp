@@ -1,3 +1,6 @@
+<%@page import="it.pennino.uni.piazzaAffari.user.model.UsersCategorie"%>
+<%@page import="it.pennino.uni.piazzaAffari.user.model.UsersCategorieDaoImp"%>
+<%@page import="it.pennino.uni.piazzaAffari.user.model.UsersCategorieDao"%>
 <%@page import="it.pennino.uni.piazzaAffari.clienti.model.RichiestaDaoImp"%>
 <%@page import="it.pennino.uni.piazzaAffari.clienti.model.RichiestaDao"%>
 <%@page import="it.pennino.uni.piazzaAffari.clienti.model.Richiesta"%>
@@ -27,20 +30,12 @@
 		<div class="container">
 			<%
 				String msg = (String)request.getAttribute("msgStr");
-				if(msg!=null && msg.equals("del-ok")){
+				if(msg!=null && msg.equals("risp-ok")){
 					%>
 					<div class="alert alert-success">
-					  <strong>Cancellazione</strong> avvenuta con successo.
+					  <strong>Risposta</strong> inviata con successo.
 					</div>
-					<%
-				}else if(msg!=null && msg.equals("ins-ok")){
-					%>
-					<div class="alert alert-success">
-					  <strong>Salvataggio</strong> avvenuta con successo.
-					</div>
-					<%
-				}
-			%>
+				<%} %>
 			
 			
 			<div class="table-responsive">
@@ -48,56 +43,36 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th></th>
-						<th></th>
 						<th>Categoria</th>
 						<th>Titolo</th>
 						<th>Descrizione</th>
-						<th>Stato</th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
-								UserSession userSession = (UserSession)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+						UserSession userSession = (UserSession)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 					
-								RichiestaDao rDao = new RichiestaDaoImp();
-								ArrayList<Richiesta> richieste = rDao.findAll(userSession.getUser());
-								if(richieste!=null && richieste.size()>0){
-								Iterator<Richiesta> itrRichieste = richieste.iterator();
+						UsersCategorieDao usCatDao = new UsersCategorieDaoImp();
+						ArrayList<UsersCategorie> categorie = usCatDao.findAllByUser(userSession.getUser());
+					
+						RichiestaDao rDao = new RichiestaDaoImp();
+						ArrayList<Richiesta> richieste = rDao.findAllByCategoria(categorie, userSession.getUser().getComune());
 								
-								while(itrRichieste.hasNext()){
-									Richiesta richiesta = itrRichieste.next();
-							%>
+						if(richieste!=null && richieste.size()>0){
+						Iterator<Richiesta> itrRichieste = richieste.iterator();
+								
+						while(itrRichieste.hasNext()){
+								Richiesta richiesta = itrRichieste.next();
+					%>
 								<tr>
 									<td>
-										<a id="deleteRichiesta" href="${pageContext.request.contextPath}/clienti/richiesta/delete/<%=richiesta.getIdRichiesta()%>" title="Cancella">
-								          <span class="glyphicon glyphicon-trash"></span>
-								        </a>
-									</td>
-									<td>
-										<a id="editRichiesta" href="${pageContext.request.contextPath}/clienti/richiesta/edit/<%=richiesta.getIdRichiesta()%>" title="Modifica">
+										<a id="rispondiRichiesta" href="${pageContext.request.contextPath}/professionisti/richiesta/risposta/<%=richiesta.getIdRichiesta()%>" title="Rispondi">
 								          <span class="glyphicon glyphicon-edit"></span>
-								        </a>
-									</td>
-									<td>
-										<a id="risposteRichiesta" href="${pageContext.request.contextPath}/clienti/richiesta/risposte/<%=richiesta.getIdRichiesta()%>" title="Risposte">
-								          <span class="glyphicon glyphicon-th-list"></span>
 								        </a>
 									</td>
 									<td><%=richiesta.getCategoria()%></td>
 									<td><%=richiesta.getTitolo()%></td>
 									<td><%=richiesta.getDescrizione()%></td>
-									<td>
-										<%if(richiesta.getApprovato().equals("N")){%>
-											Da approvare
-										<% } else if(richiesta.getApprovato().equals("R")){ %>
-											Rifiutato
-										<% }else { %>
-											Approvato
-										<% } %>
-									</td>
-									
-									
 								</tr>
 							<%			
 								}

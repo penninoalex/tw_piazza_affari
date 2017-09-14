@@ -8,7 +8,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" ></script>
 	<script src="${pageContext.request.contextPath}/resources/js/datiUltimaVisita.js" ></script>
 	
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<title>Piazza affari - ${titolo}</title>
 </head>
@@ -18,6 +18,15 @@
 	<article>
 		<div class="container">
 			<header><h2>${titolo}</h2></header>
+			<%
+				String errore = (String)request.getParameter("errore");
+				if(errore!=null){
+			%>
+				<div class="alert alert-danger">
+					<%=errore%>
+				</div>
+			<%}%>
+			
 			<form action="verificaLogin" method="POST">
 				<div class="form-group">
 			    	<label for="email">Email:</label>

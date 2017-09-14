@@ -6,6 +6,7 @@ public class Pagine implements java.io.Serializable {
 	private String titolo;
 	private String contenuto;
 	private String url;
+	private Integer comune;
 
 	public Pagine() {
 	}
@@ -47,5 +48,14 @@ public class Pagine implements java.io.Serializable {
 		this.url = url;
 	}
 
+	public Integer getComune() {
+		return comune;
+	}
+
+	public void setComune(Integer comune) {
+		this.comune = comune;
+	}
+
+	
 	
 }

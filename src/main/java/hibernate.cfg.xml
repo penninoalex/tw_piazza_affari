@@ -19,6 +19,7 @@
   
   <mapping resource="it/pennino/uni/piazzaAffari/user/model/User.hbm.xml"/>
   <mapping resource="it/pennino/uni/piazzaAffari/user/model/UserRuoli.hbm.xml"/>
+  <mapping resource="it/pennino/uni/piazzaAffari/user/model/UsersCategorie.hbm.xml"/>
  
   <mapping resource="it/pennino/uni/piazzaAffari/categoria/model/Categorie.hbm.xml"/>
   <mapping resource="it/pennino/uni/piazzaAffari/annuncio/model/Annunci.hbm.xml"/>
@@ -27,6 +28,9 @@
  
   <mapping resource="it/pennino/uni/piazzaAffari/clienti/model/Richieste.hbm.xml"/>
   <mapping resource="it/pennino/uni/piazzaAffari/clienti/model/RichiesteRisposte.hbm.xml"/>
+ 
+ 
+  <mapping resource="it/pennino/uni/piazzaAffari/comuni/model/Comuni.hbm.xml"/>
  
  </session-factory>
 </hibernate-configuration>

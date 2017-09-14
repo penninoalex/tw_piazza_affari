@@ -1,5 +1,7 @@
 package it.pennino.uni.piazzaAffari;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,9 +9,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import it.pennino.uni.piazzaAffari.annuncio.model.Annuncio;
+import it.pennino.uni.piazzaAffari.annuncio.model.AnnuncioDao;
+import it.pennino.uni.piazzaAffari.annuncio.model.AnnuncioDaoImp;
+import it.pennino.uni.piazzaAffari.categoria.model.Categoria;
+import it.pennino.uni.piazzaAffari.categoria.model.CategoriaDao;
+import it.pennino.uni.piazzaAffari.categoria.model.CategoriaDaoImp;
+import it.pennino.uni.piazzaAffari.comuni.model.Comune;
+import it.pennino.uni.piazzaAffari.comuni.model.ComuneDaoImp;
 
 @Controller 
 public class BaseController {
@@ -46,6 +59,29 @@ public class BaseController {
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
 	    return "redirect:/home";
+	}
+	
+	
+	@RequestMapping(value = "/ricerca", method = RequestMethod.GET) 
+	public String listaAnnunciOspiteGet(){
+			return "redirect:/home";
+	}
+	
+	@RequestMapping(value = "/ricerca", method = RequestMethod.POST) 
+	public ModelAndView listaAnnunciOspite(
+			@RequestParam String categoria,
+			@RequestParam Integer comune){
+		System.out.println("Base controller lista annunci");
+		Categoria cat = (new CategoriaDaoImp()).findById(categoria);
+		
+		AnnuncioDao aDao = new AnnuncioDaoImp();
+		ArrayList<Annuncio> annunci = aDao.findByCategoriaCitta(cat, comune);
+		
+		
+		ModelAndView model = new ModelAndView("ricerca");
+		model.addObject("titolo", "Ricerca annuncio");
+		model.addObject("listaAnnunci", annunci);
+		return model;
 	}
 	
 }

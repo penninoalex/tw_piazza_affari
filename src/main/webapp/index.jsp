@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<%@page import="it.pennino.uni.piazzaAffari.categoria.model.CategoriaDaoImp"%>
+<%@page import="it.pennino.uni.piazzaAffari.categoria.model.CategoriaDao"%>
+<%@page import="it.pennino.uni.piazzaAffari.categoria.model.Categoria"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="it.pennino.uni.piazzaAffari.comuni.model.Comune"%>
+<%@page import="it.pennino.uni.piazzaAffari.comuni.model.ComuneDaoImp"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="it.pennino.uni.piazzaAffari.comuni.model.ComuneDao"%>
 <html>
 <head>
 	
@@ -20,17 +28,40 @@
 	<article>
 		<div class="container">
 			<div class="jumbotron">
-					<header><h2>Troviamo il professionista che stai cercando.</h2></header>
 					<section>
+						<h2>Troviamo il professionista che stai cercando.</h2>
 						<h3>Confronta preventivi in poche ore, gratis e senza impegno.</h3>
-						<div class="form-group">
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="cerca" placeholder="Cosa stai cercando ?">
-							</div>
-							<div class="col-sm-2">
-								<button type="submit" class="btn btn-default">Cerca</button>
-							</div>					
+						<div class="col-sm-10">
+						<form method="POST" action="ricerca">
+							<div class="form-inline">
 							
+							<h4>Cosa stai cercando ? 
+							<select  class="form-control" id="categoria" name="categoria">
+								    	<% 	CategoriaDao cDao = new CategoriaDaoImp();
+								    		ArrayList<Categoria> categorie = cDao.findAll();
+								    		Iterator<Categoria> itrCategoria = categorie.iterator();
+								    		while(itrCategoria.hasNext()){
+								    		Categoria categoria = itrCategoria.next();
+								    	%>
+								   			<option id="<%=categoria.getNome()%>" value="<%=categoria.getNome()%>"><%=categoria.getNome()%></option> 	
+								    	<%}%>
+							</select>
+							
+							<select  class="form-control" id="comune" name="comune">
+								    	<% 	ComuneDao comuniDao = new ComuneDaoImp();
+								    		ArrayList<Comune> comuni = comuniDao.findAll();
+								    		Iterator<Comune> itrComune = comuni.iterator();
+								    		while(itrComune.hasNext()){
+								    		Comune comune = itrComune.next();
+								    	%>
+								   			<option  data-istat="<%=comune.getIstat()%>" id="<%=comune.getComune()%>" value="<%=comune.getIstat()%>"><%=comune.getComune()%></option> 	
+								    	<%}%>
+							</select>
+							<button type="submit" class="btn btn-default">Cerca</button>
+							</h4>
+							</div>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+						</form>
 						</div>
 					</section>
 				

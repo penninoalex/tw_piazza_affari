@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 5-set-2017 21.34.11 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="it.pennino.uni.piazzaAffari.user.model.UsersCategorie" table="users_categorie" optimistic-lock="version">
+        <composite-id name="id" class="it.pennino.uni.piazzaAffari.user.model.UsersCategorieId">
+            <key-property name="idUser" type="int">
+                <column name="ID_USER" />
+            </key-property>
+            <key-property name="categoria" type="string">
+                <column name="CATEGORIA" length="25" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -10,8 +10,10 @@ public class User implements java.io.Serializable {
 	private String nome;
 	private String cognome;
 	private String email;
+	private Integer comune;
 	private String password;
 	private Set userRuoli= new HashSet(0);
+	private Set userCategorie= new HashSet(0);
 	private Set annunci = new HashSet(0);
 	private String approvato="N";
 
@@ -19,11 +21,13 @@ public class User implements java.io.Serializable {
 	public User() {
 	}
 
-	public User(String nome, String cognome, String email, String password) {
+	public User(String nome, String cognome, String email,Integer comune, String password) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
 		this.password = password;
+		this.comune = comune;
+		
 	}
 
 	public Integer getId() {
@@ -89,4 +93,22 @@ public class User implements java.io.Serializable {
 		this.approvato = approvato;
 	}
 
+	public Integer getComune() {
+		return comune;
+	}
+
+	public void setComune(Integer comune) {
+		this.comune = comune;
+	}
+
+	public Set getUserCategorie() {
+		return userCategorie;
+	}
+
+	public void setUserCategorie(Set userCategorie) {
+		this.userCategorie = userCategorie;
+	}
+
+	
+	
 }

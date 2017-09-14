@@ -113,5 +113,17 @@ public class ClientiController {
 		
 		return "redirect:/clienti/lista_richieste/del-ok";
 	}
+	
+	@RequestMapping( value = {"/clienti/richiesta/risposte/{id_richiesta}"} ,method = RequestMethod.GET)
+	public ModelAndView richiestaRisposte(@PathVariable Integer id_richiesta){
+		RichiestaDao rDao = new RichiestaDaoImp();
+		Richiesta richiesta = rDao.findById(id_richiesta);
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName("view/clienti/risposta");
+		model.addObject("richiesta",richiesta);
+		
+		return model;
+	}
 
 }

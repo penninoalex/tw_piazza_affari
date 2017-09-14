@@ -21,12 +21,12 @@
 		<form-login
 		    login-page="/accedi"
 		    login-processing-url="/verificaLogin"
-		    default-target-url="/loghiOk"
-			authentication-failure-url="/errore"
-			authentication-success-handler-ref="mySuccessHandler"
+		   	authentication-success-handler-ref="logInSuccessHandler"
+			authentication-failure-handler-ref="logInFailureHandler"
 			
 			username-parameter="email"
 			password-parameter="password" />
+		
 		<logout 
 			logout-success-url="/home"
 			logout-url="/logout" />
@@ -41,5 +41,7 @@
 	</authentication-manager>
 
 	<beans:bean id="userDetailsServiceImplement"    class="it.pennino.uni.piazzaAffari.user.controller.UserDetailsServiceImplement"></beans:bean>
-    <beans:bean id="mySuccessHandler" 				class="it.pennino.uni.piazzaAffari.user.controller.MySuccessHandler"></beans:bean>
+    <beans:bean id="logInSuccessHandler" 			class="it.pennino.uni.piazzaAffari.user.controller.LogInSuccessHandler"></beans:bean>
+	<beans:bean id="logInFailureHandler" 			class="it.pennino.uni.piazzaAffari.user.controller.LogInFailureHandler"></beans:bean>
+	
 </beans:beans>

@@ -17,6 +17,9 @@
         <property name="email" type="string">
             <column name="email" length="100" not-null="true" />
         </property>
+        <property name="comune" type="java.lang.Integer">
+            <column name="comune" length="6" not-null="true" />
+        </property>
         <property name="password" type="string">
             <column name="password" length="50" not-null="true" />
         </property>
@@ -35,6 +38,12 @@
                 <column name="ID_UTENTE" not-null="true" />
             </key>
             <one-to-many class="it.pennino.uni.piazzaAffari.annuncio.model.Annuncio" />
+        </set>
+        <set name="userCategorie" table="user_categorie" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_USER" not-null="false" />
+            </key>
+            <one-to-many class="it.pennino.uni.piazzaAffari.user.model.UsersCategorie" />
         </set>
     </class>
 </hibernate-mapping>

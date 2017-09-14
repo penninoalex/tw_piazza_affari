@@ -16,7 +16,6 @@ import it.pennino.uni.piazzaAffari.user.model.UserDao;
 import it.pennino.uni.piazzaAffari.user.model.UserDaoImp;
 import it.pennino.uni.piazzaAffari.user.model.UserRuoli;
 
-//it.pennino.uni.piazzaAffari.user.controller.UserDetailsServiceImplement
 public class UserDetailsServiceImplement implements UserDetailsService {
 	private UserDao userDao = new UserDaoImp();
 
@@ -25,18 +24,26 @@ public class UserDetailsServiceImplement implements UserDetailsService {
 		System.out.println("loadUserByUsername = OK");
 		
 		User user = userDao.findByUserName(username);
-		System.out.println("user = " + user);
-
-		List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRuoli());
-
-		return buildUserForAuthentication(user, authorities);
+		if(user!=null){
+			System.out.println("user = " + user);
+	
+			
+			List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRuoli());
+	
+			return buildUserForAuthentication(user, authorities);
+		}else{
+			throw new UsernameNotFoundException("Utente non trovato");
+		}
 	}
 
-	// Converts com.mkyong.users.model.User user to
-	// org.springframework.security.core.userdetails.User
 	private UserSession buildUserForAuthentication(it.pennino.uni.piazzaAffari.user.model.User user,
 			List<GrantedAuthority> authorities) {
-		UserSession usrTmp = new UserSession(user.getEmail(), user.getPassword(), true, true, true, true, authorities);
+		
+		boolean abilitato = false;
+		if(user.getApprovato().equals("Y"))
+			abilitato = true;
+		
+		UserSession usrTmp = new UserSession(user.getEmail(), user.getPassword(), abilitato, true, true, true, authorities);
 		usrTmp.setUser(user);
 		System.out.println("usrTmp =" + usrTmp);
 		System.out.println("usrTmp.password =" + usrTmp.getPassword());

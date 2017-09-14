@@ -13,7 +13,6 @@ import it.pennino.uni.piazzaAffari.utils.HibernateUtils;
 
 
 public class UserDaoImp implements UserDao{
-	private static final Log log = LogFactory.getLog(UserDaoImp.class);
 	
 	public void save(User utente) {
 		Session session = HibernateUtils.getSession();
@@ -40,7 +39,6 @@ public class UserDaoImp implements UserDao{
 			session.delete(persistentInstance);
 			tx.commit();
 		} catch (RuntimeException re) {
-			log.error("delete failed", re);
 			throw re;
 		}finally {
 			if(session.isConnected()){
@@ -56,7 +54,6 @@ public class UserDaoImp implements UserDao{
 			User instance = (User)session.get(User.class, id);
 			return instance;
 		} catch (RuntimeException re) {
-			log.error("get failed", re);
 			throw re;
 		}finally {
 			if(session.isConnected()){

@@ -1,12 +1,20 @@
 package it.pennino.uni.piazzaAffari.clienti.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import it.pennino.uni.piazzaAffari.categoria.model.Categoria;
+import it.pennino.uni.piazzaAffari.user.controller.UserSession;
 import it.pennino.uni.piazzaAffari.user.model.User;
+import it.pennino.uni.piazzaAffari.user.model.UsersCategorie;
+import it.pennino.uni.piazzaAffari.user.model.UsersCategorieDao;
+import it.pennino.uni.piazzaAffari.user.model.UsersCategorieDaoImp;
 import it.pennino.uni.piazzaAffari.utils.HibernateUtils;
 
 public class RichiestaDaoImp implements RichiestaDao{
@@ -81,6 +89,69 @@ public class RichiestaDaoImp implements RichiestaDao{
 		} else {
 			return null;
 		}
+	}
+	
+	
+
+	
+	public ArrayList<Richiesta> findAllByCategoria(ArrayList<UsersCategorie> categorieUtente,Integer codIstatComune) {
+		Session session = HibernateUtils.getSession();
+		List results =null;
+		
+		//Trasformo la sista di usersCategorie in una lista di stringhe
+		ArrayList<String> categorie = new ArrayList<String>();
+		if(categorieUtente!=null && categorieUtente.size()>0){
+			for(int i=0; i<categorieUtente.size(); i++){
+				System.out.println("Categoria = "+categorieUtente.get(i).getId().getCategoria());
+				categorie.add(categorieUtente.get(i).getId().getCategoria());
+			}
+		}
+		
+		
+		try {
+			Criteria cr = session.createCriteria(Richiesta.class);
+			cr.add(Restrictions.in("categoria", categorie));
+			
+			//TODO modificare
+			//cr.add(Restrictions.eq("user.comune", comune));
+			
+			
+			cr.add(Restrictions.eq("approvato", "Y"));
+			results = cr.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session.isConnected()){
+				session.close();
+			}
+		}
+		
+		
+		if (results != null && results.size() > 0) {
+			return (ArrayList<Richiesta>) results;
+		} else {
+			return null;
+		}
+	}
+	
+	
+	public Integer numeroRichieste(ArrayList<UsersCategorie> categoria,Integer codIstatComune) {
+		ArrayList<Richiesta> richieste = findAllByCategoria(categoria, codIstatComune);
+		if(richieste==null){
+			return 0;
+		}else{
+			return richieste.size();
+		}
+		
+	}
+	
+	public Integer numeroRichieste() {
+		UserSession userSession = (UserSession)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		UsersCategorieDao usCatDao = new UsersCategorieDaoImp();
+		ArrayList<UsersCategorie> categorie = usCatDao.findAllByUser(userSession.getUser());
+	
+		return numeroRichieste(categorie, userSession.getUser().getComune());
 	}
 
 }

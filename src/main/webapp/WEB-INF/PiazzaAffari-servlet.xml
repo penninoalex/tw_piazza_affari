@@ -12,24 +12,14 @@
     ">
 
 	 
-	<!-- ======================================= -->
- 	<!-- 1. Mappa delle risorse statiche         -->
- 	<!-- ======================================= -->
     <mvc:resources mapping="/resources/**" location="/resources/" cache-period="10"/>
     <mvc:annotation-driven />
 	
    
-    <!-- ======================================= -->
- 	<!-- 2. Mappa delle risorse statiche         -->
- 	<!-- ======================================= -->
     <context:component-scan base-package="it.pennino.uni.piazzaAffari" />
 	<context:annotation-config/>
    
 	
-	<!-- ======================================= -->
- 	<!-- 3. Mappa delle risorse statiche         -->
- 	<!-- ======================================= -->
-    
 	<bean id="viewResolver"
     	class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
         <property name="prefix">
@@ -39,6 +29,9 @@
             <value>.jsp</value>
         </property>
     </bean>
+    
+    
+    
     
    
    

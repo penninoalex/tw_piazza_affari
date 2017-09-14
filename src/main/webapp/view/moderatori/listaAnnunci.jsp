@@ -61,6 +61,7 @@
 					<%
 								AnnuncioDao aDao = new AnnuncioDaoImp();
 								ArrayList<Annuncio> annunci = aDao.findAll(null);
+								if(annunci!=null){
 								Iterator<Annuncio> itrAnnuncio = annunci.iterator();
 								while(itrAnnuncio.hasNext()){
 									Annuncio ann = itrAnnuncio.next();
@@ -105,6 +106,11 @@
 									
 								</tr>
 							<%			
+								}
+								}else{
+									%>
+									<tr><td colspan="9"><center>Non ci sono annunci da visualizzare</center></td></tr>
+									<%
 								}
 							%>
 				</tbody>

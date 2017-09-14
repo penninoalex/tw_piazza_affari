@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-set-2017 21.30.31 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="it.pennino.uni.piazzaAffari.user.tmp.Province" table="province" catalog="piazza_affari" optimistic-lock="version">
+        <id name="idProvincia" type="java.lang.Integer">
+            <column name="idProvincia" />
+            <generator class="identity" />
+        </id>
+        <property name="idRegione" type="int">
+            <column name="idRegione" not-null="true" />
+        </property>
+        <property name="nomeProvincia" type="string">
+            <column name="nomeProvincia" length="200" not-null="true" />
+        </property>
+        <property name="siglaProvincia" type="string">
+            <column name="siglaProvincia" length="4" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

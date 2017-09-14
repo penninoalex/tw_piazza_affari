@@ -2,6 +2,7 @@ package it.pennino.uni.piazzaAffari.professionisti;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,13 @@ import it.pennino.uni.piazzaAffari.annuncio.model.AnnuncioDaoImp;
 import it.pennino.uni.piazzaAffari.categoria.model.Categoria;
 import it.pennino.uni.piazzaAffari.categoria.model.CategoriaDao;
 import it.pennino.uni.piazzaAffari.categoria.model.CategoriaDaoImp;
+import it.pennino.uni.piazzaAffari.clienti.model.Richiesta;
+import it.pennino.uni.piazzaAffari.clienti.model.RichiestaDao;
+import it.pennino.uni.piazzaAffari.clienti.model.RichiestaDaoImp;
+import it.pennino.uni.piazzaAffari.clienti.model.RichiesteRisposte;
+import it.pennino.uni.piazzaAffari.clienti.model.RichiesteRisposteDao;
+import it.pennino.uni.piazzaAffari.clienti.model.RichiesteRisposteDaoImp;
+import it.pennino.uni.piazzaAffari.clienti.model.RichiesteRisposteId;
 import it.pennino.uni.piazzaAffari.user.controller.UserSession;
 
 @Controller
@@ -122,5 +130,56 @@ public class ProfessionistiController {
 		}
 		
 		return "redirect:/professionisti/lista_annunci/del-ok";
+	}
+	
+	
+	
+	@RequestMapping(value = {"/professionisti/lista_richieste","/professionisti/lista_richieste/{msg}"}, method = RequestMethod.GET)
+	public ModelAndView listaRichieste(@PathVariable Optional<String> msg) {
+		System.out.println("msg = "+msg);
+		ModelAndView model = new ModelAndView();
+		model.setViewName("view/professionisti/listaRichieste");
+		if(msg!=null && msg.isPresent()){
+			System.out.println("msg = "+msg.get());
+			model.addObject("msgStr",msg.get());
+		}
+		return model;
+	}
+
+	@RequestMapping( value = {"/professionisti/richiesta/risposta/{idRichiesta}"} ,method = RequestMethod.GET)
+	public ModelAndView richiestaRisposta(@PathVariable Integer idRichiesta){
+		RichiestaDao rDao = new RichiestaDaoImp();
+		Richiesta richiesta = rDao.findById(idRichiesta);
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName("view/professionisti/risposta");
+		model.addObject("richiesta",richiesta);
+		
+		return model;
+	}
+	
+	//salvaRisposta
+	@RequestMapping( value = {"/professionisti/richiesta/risposta/salvaRisposta"} ,method = RequestMethod.POST)
+	public ModelAndView richiestaRisposta(@RequestParam Integer idRichiesta,@RequestParam String risposta){
+		//Recupero l'utente corrente
+		UserSession userSession = (UserSession)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	
+		
+		RichiesteRisposteDao rRDao = new RichiesteRisposteDaoImp();
+		
+		RichiesteRisposteId idRisp = new RichiesteRisposteId();
+		idRisp.setIdRichiesta(idRichiesta);
+		idRisp.setIdRisposta(1); //TODO calcolare l'ultimo + 1
+		
+		RichiesteRisposte risp = new RichiesteRisposte();
+		risp.setId(idRisp);
+		risp.setTesto(risposta);
+		risp.setUser(userSession.getUser());
+		
+		rRDao.save(risp);
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName("redirect:/professionisti/lista_richieste");
+		return model;
 	}
 }

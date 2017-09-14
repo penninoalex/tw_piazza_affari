@@ -24,6 +24,7 @@ public class LogInController {
 		
 	}
 
+	/*
 	@RequestMapping(value = "/verificaCredenziali" , method = RequestMethod.POST)
 	public ModelAndView salvaUtente(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("email") String email,
@@ -43,7 +44,7 @@ public class LogInController {
 		
 		ModelAndView model = null;
 		
-		if(utente!=null){
+		if(utente!=null && utente.getApprovato().equals("Y")){
 			//Imposta sessione
 			
 			model = new ModelAndView("view/loginOK");
@@ -52,12 +53,19 @@ public class LogInController {
 			
 		}else{
 			
-			model = new ModelAndView("view/loginErrore");
+			model = new ModelAndView("view/logIn");
 			model.addObject("titolo", "Login");
+			
+			if(utente!=null && utente.getApprovato().equals("N")){
+				model.addObject("errore", "Utente non ancora approvato");
+			}else if(utente!=null){
+				model.addObject("errore", "E-Mail o Password errati");
+			}
 		}
 		
 		
 		return model;
 		
 	}
+	*/
 }

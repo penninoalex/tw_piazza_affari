@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-set-2017 21.30.31 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="it.pennino.uni.piazzaAffari.comuni.model.Comune" table="comuni" optimistic-lock="version">
+        <id name="istat" type="int">
+            <column name="Istat" />
+            <generator class="assigned" />
+        </id>
+        <property name="comune" type="string">
+            <column name="Comune" length="35" />
+        </property>
+        <property name="provincia" type="string">
+            <column name="Provincia" length="2" />
+        </property>
+        <property name="regione" type="string">
+            <column name="Regione" length="3" />
+        </property>
+        <property name="cap" type="string">
+            <column name="CAP" length="5" />
+        </property>
+    </class>
+</hibernate-mapping>
