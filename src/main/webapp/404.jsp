@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Professionisti - 403</title>
+<title>Professionisti - 404</title>
 </head>
 <body>
 	<strong>
 		<center>
-			<h1>Attenzione non sei autorizzato ad accedere a questa pagina.</h1>
+			<h1>Attenzione la pagina che stai cercando non è presente nel sito.</h1>
 		</center>
 	</strong>
 </body>

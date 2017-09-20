@@ -112,7 +112,10 @@ public class UserDaoImp implements UserDao{
 	public ArrayList<User> findAll(String stato) {
 		Session session = HibernateUtils.getSession();
 		Criteria cr = session.createCriteria(User.class);
-		//TODO Gestire il caso di stato valorizzato
+		
+		if(stato!=null && !stato.equals("")){
+			cr.add(Restrictions.eq("approvato", stato));
+		}
 		
 		List results = cr.list();
 		

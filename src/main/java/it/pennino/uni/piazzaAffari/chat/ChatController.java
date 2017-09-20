@@ -28,7 +28,6 @@ public class ChatController {
 		ModelAndView model = new ModelAndView("view/chat/chat");
 		model.addObject("titolo", "Chat");
 		model.addObject("nome", nome);
-		System.out.println("Nome = "+nome);
 		return model;
 	}
 
@@ -40,13 +39,10 @@ public class ChatController {
 			@RequestParam("idMittente") String idMittente,
 			@RequestParam("utentiCollegatiList") String[] dest
 			){
-		System.out.println("Nome = "+nome);
-		System.out.println("msg = "+msg);
-		System.out.println("dest = "+dest[0]);
-		System.out.println("idMittente = "+idMittente);
-		
-		
-		
+		//System.out.println("Nome = "+nome);
+		//System.out.println("Msg = "+msg);
+		//System.out.println("Dest = "+dest[0]);
+		//System.out.println("Mittente = "+idMittente);
 		
 		WebSocketServer soket = new WebSocketServer();
 		

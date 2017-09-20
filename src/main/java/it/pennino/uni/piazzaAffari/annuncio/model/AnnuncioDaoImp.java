@@ -6,9 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-
 import it.pennino.uni.piazzaAffari.categoria.model.Categoria;
-import it.pennino.uni.piazzaAffari.comuni.model.Comune;
 import it.pennino.uni.piazzaAffari.user.model.User;
 import it.pennino.uni.piazzaAffari.utils.HibernateUtils;
 
@@ -92,10 +90,12 @@ public class AnnuncioDaoImp implements AnnuncioDao{
 		List results =null;
 		try {
 			Criteria cr = session.createCriteria(Annuncio.class);
-			
+			 
 			cr.add(Restrictions.eq("categoria", categoria));
-			//TODO Modificare
-			//cr.add(Restrictions.eq("users.comune", codIstat));
+			
+			cr.createAlias("users", "users");
+			cr.add(Restrictions.eq("users.comune", codIstat));
+			
 			cr.add(Restrictions.eq("approvato", "Y"));
 			
 			results = cr.list();

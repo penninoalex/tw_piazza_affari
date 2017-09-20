@@ -2,7 +2,7 @@ var chat = document.getElementById("textareaChat");
 
 function connectWs(username){
 	chat = document.getElementById("textareaChat");
-	var socket = new WebSocket("ws:/localhost:8080/PiazzaAffari/chat");
+	var socket = new WebSocket("ws:/"+document.location.host+":"+document.location.port+"/PiazzaAffari/chat");
 
 	socket.addEventListener("open",function(event){
 		//console.log("Connesso "+username)

@@ -50,10 +50,10 @@ public class ClientiController {
 											@RequestParam("descrizione")String descrizione) {
 		
 		
-		System.out.println("idRichiesta = "+idRichiesta);
-		System.out.println("categoria = "+categoria);
-		System.out.println("titolo = "+titolo);
-		System.out.println("descrizione = "+descrizione);
+		//System.out.println("IdRichiesta = "+idRichiesta);
+		//System.out.println("Categoria = "+categoria);
+		//System.out.println("Titolo = "+titolo);
+		//System.out.println("Descrizione = "+descrizione);
 		
 
 		ModelAndView model = new ModelAndView();

@@ -28,8 +28,7 @@ public class ModeratoriController {
 	
 	@RequestMapping(value = {"/moderatori/annuncio/{id_annuncio}"} , method = RequestMethod.GET)
 	public ModelAndView visualizzaAnnuncio(@PathVariable Integer id_annuncio){
-		
-		System.out.println("Annuncio selezionato = "+id_annuncio);
+		//System.out.println("Annuncio selezionato = "+id_annuncio);
 		
 		
 		AnnuncioDao aDao = new AnnuncioDaoImp();
@@ -112,10 +111,6 @@ public class ModeratoriController {
 	
 	@RequestMapping(value = {"/moderatori/utente/{id_utente}"} , method = RequestMethod.GET)
 	public ModelAndView visualizzaUtente(@PathVariable Integer id_utente){
-		
-		System.out.println("Utente selezionato = "+id_utente);
-		
-		
 		UserDao uDao = new UserDaoImp();
 		User utente = uDao.findById(id_utente);
 		
@@ -134,8 +129,6 @@ public class ModeratoriController {
 	
 	@RequestMapping(value = {"/moderatori/utente/approva/{id_utente}"} , method = RequestMethod.GET)
 	public String approvaUtente(@PathVariable Integer id_utente){
-		System.out.println("Utente selezionato = "+id_utente);
-	
 		UserDao uDao = new UserDaoImp();
 		User utente = uDao.findById(id_utente);
 		utente.setApprovato("Y");

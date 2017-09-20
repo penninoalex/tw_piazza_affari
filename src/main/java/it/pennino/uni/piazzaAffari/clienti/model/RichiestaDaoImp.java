@@ -102,7 +102,6 @@ public class RichiestaDaoImp implements RichiestaDao{
 		ArrayList<String> categorie = new ArrayList<String>();
 		if(categorieUtente!=null && categorieUtente.size()>0){
 			for(int i=0; i<categorieUtente.size(); i++){
-				System.out.println("Categoria = "+categorieUtente.get(i).getId().getCategoria());
 				categorie.add(categorieUtente.get(i).getId().getCategoria());
 			}
 		}
@@ -112,10 +111,9 @@ public class RichiestaDaoImp implements RichiestaDao{
 			Criteria cr = session.createCriteria(Richiesta.class);
 			cr.add(Restrictions.in("categoria", categorie));
 			
-			//TODO modificare
-			//cr.add(Restrictions.eq("user.comune", comune));
-			
-			
+			cr.createAlias("user", "user");
+			cr.add(Restrictions.eq("user.comune", codIstatComune));
+		
 			cr.add(Restrictions.eq("approvato", "Y"));
 			results = cr.list();
 		} catch (Exception e) {
@@ -125,7 +123,6 @@ public class RichiestaDaoImp implements RichiestaDao{
 				session.close();
 			}
 		}
-		
 		
 		if (results != null && results.size() > 0) {
 			return (ArrayList<Richiesta>) results;

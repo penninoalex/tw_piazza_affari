@@ -44,12 +44,10 @@ public class ProfessionistiController {
 	
 	@RequestMapping(value = {"/professionisti/lista_annunci","/professionisti/lista_annunci/{msg}"}, method = RequestMethod.GET)
 	public ModelAndView listaAnnunci(@PathVariable Optional<String> msg) {
-		//del-ok
-		System.out.println("msg = "+msg);
 		ModelAndView model = new ModelAndView();
 		model.setViewName("view/professionisti/listaAnnunci");
 		if(msg!=null && msg.isPresent()){
-			System.out.println("msg = "+msg.get());
+			//System.out.println("Msg = "+msg.get());
 			model.addObject("msgStr",msg.get());
 		}
 		return model;
@@ -65,13 +63,13 @@ public class ProfessionistiController {
 			@RequestParam("selCat") String categoria,
 			@RequestParam("idAnnuncio") Integer idAnnuncio) {
 		
-		System.out.println("pubblicaAnnncio");
-		System.out.println("idAnnuncio="+idAnnuncio);
-		System.out.println("titol="+titolo);
-		System.out.println("descrizione="+descrizione);
-		System.out.println("prezzo="+prezzo);
-		System.out.println("tipoPrezzo="+tipoPrezzo);
-		System.out.println("categoria="+categoria);
+		//System.out.println("pubblicaAnnncio");
+		//System.out.println("IdAnnuncio="+idAnnuncio);
+		//System.out.println("Titolo="+titolo);
+		//System.out.println("Descrizione="+descrizione);
+		//System.out.println("Prezzo="+prezzo);
+		//System.out.println("TipoPrezzo="+tipoPrezzo);
+		//System.out.println("Categoria="+categoria);
 		
 		ModelAndView model = new ModelAndView();
 		
@@ -136,11 +134,9 @@ public class ProfessionistiController {
 	
 	@RequestMapping(value = {"/professionisti/lista_richieste","/professionisti/lista_richieste/{msg}"}, method = RequestMethod.GET)
 	public ModelAndView listaRichieste(@PathVariable Optional<String> msg) {
-		System.out.println("msg = "+msg);
 		ModelAndView model = new ModelAndView();
 		model.setViewName("view/professionisti/listaRichieste");
 		if(msg!=null && msg.isPresent()){
-			System.out.println("msg = "+msg.get());
 			model.addObject("msgStr",msg.get());
 		}
 		return model;
@@ -158,18 +154,16 @@ public class ProfessionistiController {
 		return model;
 	}
 	
-	//salvaRisposta
 	@RequestMapping( value = {"/professionisti/richiesta/risposta/salvaRisposta"} ,method = RequestMethod.POST)
 	public ModelAndView richiestaRisposta(@RequestParam Integer idRichiesta,@RequestParam String risposta){
 		//Recupero l'utente corrente
 		UserSession userSession = (UserSession)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	
-		
 		RichiesteRisposteDao rRDao = new RichiesteRisposteDaoImp();
 		
 		RichiesteRisposteId idRisp = new RichiesteRisposteId();
 		idRisp.setIdRichiesta(idRichiesta);
-		idRisp.setIdRisposta(1); //TODO calcolare l'ultimo + 1
+		idRisp.setIdRisposta(RichiesteRisposteDaoImp.nextIdRisposta()); 
 		
 		RichiesteRisposte risp = new RichiesteRisposte();
 		risp.setId(idRisp);

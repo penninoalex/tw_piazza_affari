@@ -20,24 +20,16 @@ public class UserDetailsServiceImplement implements UserDetailsService {
 	private UserDao userDao = new UserDaoImp();
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("****************************");
-		System.out.println("loadUserByUsername = OK");
-		
 		User user = userDao.findByUserName(username);
 		if(user!=null){
-			System.out.println("user = " + user);
-	
-			
 			List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRuoli());
-	
 			return buildUserForAuthentication(user, authorities);
 		}else{
 			throw new UsernameNotFoundException("Utente non trovato");
 		}
 	}
 
-	private UserSession buildUserForAuthentication(it.pennino.uni.piazzaAffari.user.model.User user,
-			List<GrantedAuthority> authorities) {
+	private UserSession buildUserForAuthentication(it.pennino.uni.piazzaAffari.user.model.User user,List<GrantedAuthority> authorities) {
 		
 		boolean abilitato = false;
 		if(user.getApprovato().equals("Y"))
@@ -45,26 +37,18 @@ public class UserDetailsServiceImplement implements UserDetailsService {
 		
 		UserSession usrTmp = new UserSession(user.getEmail(), user.getPassword(), abilitato, true, true, true, authorities);
 		usrTmp.setUser(user);
-		System.out.println("usrTmp =" + usrTmp);
-		System.out.println("usrTmp.password =" + usrTmp.getPassword());
-		
-
-		
 		return usrTmp;
 	}
 
 	private List<GrantedAuthority> buildUserAuthority(Set<UserRuoli> userRoles) {
-
 		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
 
-		// Build user's authorities
 		for (UserRuoli userRole : userRoles) {
-			System.out.println("RUOLO : " + userRole.getRuolo());
+			//System.out.println("RUOLO : " + userRole.getRuolo());
 			setAuths.add(new SimpleGrantedAuthority(userRole.getRuolo()));
 		}
 
 		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
-
 		return Result;
 	}
 }

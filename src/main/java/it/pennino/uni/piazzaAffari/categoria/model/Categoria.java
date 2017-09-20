@@ -3,7 +3,6 @@ package it.pennino.uni.piazzaAffari.categoria.model;
 import java.util.HashSet;
 import java.util.Set;
 
-//it.pennino.uni.piazzaAffari.categoria.model.Categoria
 public class Categoria implements java.io.Serializable {
 
 	private String nome;
